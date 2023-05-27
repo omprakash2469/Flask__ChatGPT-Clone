@@ -25,12 +25,13 @@ def index():
         # question = request.get_json('data')['data'] // Get request data here
         
         questions = Questions.query.order_by(Questions.data_added.desc()).all()
+        questions = [question.question[:25] + "...." if len(question.question) > 25 else question.question for question in questions]
         if not questions:
             questions = "No Questions Found"
 
         data = {
             "status": "success",
-            "questions": [question.question[:25] + "...." if len(question.question) > 25 else question.question for question in questions]
+            "questions": questions
         }
         # Return Response
         return jsonify(data)
@@ -60,9 +61,9 @@ def chat():
                 model="text-davinci-003", 
                 prompt=question, 
                 temperature=0.5, 
-                max_tokens=10
+                max_tokens=100
             )
-
+            print(response.choices[0]['text'])
             # Return Response
             data = {
                 "status": "success",

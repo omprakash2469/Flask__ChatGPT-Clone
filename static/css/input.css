@@ -5,10 +5,7 @@
 .box{
     @apply w-[760px] mx-auto;
 }
-  
-#questionsHistory{
-  
-}
+
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
