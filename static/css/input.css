@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.box{
+    @apply w-[760px] mx-auto;
+}
+  
+#questionsHistory{
+  
+}
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  @apply bg-gray-400;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.square {
+  @apply bg-[#ddd] w-[10px] h-[10px] absolute top-1/2 left-1/2 -mt-1 -ml-1;
+}
+
+#sq1 {
+  margin-top: -25px;
+  margin-left: -25px;
+  animation-direction: alternate;
+}
+
+#sq2 {
+  margin-top: -25px;
+  animation-delay: 75ms;
+  animation-direction: alternate;
+}
+
+#sq3 {
+  margin-top: -25px;
+  margin-left: 15px;
+  animation-delay: 150ms;
+}
+
+#sq4 {
+  margin-left: -25px;
+  animation-delay: 225ms;
+}
+
+#sq5 {
+  animation-delay: 300ms;
+}
+
+#sq6 {
+  animation-delay: 375ms;
+  margin-left: 15px;
+}
+
+#sq7 {
+  animation-delay: 450ms;
+  margin-top: 15px;
+  margin-left: -25px;
+}
+
+#sq8 {
+  margin-top: 15px;
+  animation-delay: 525ms;
+}
+
+#sq9 {
+  animation-delay: 600ms;
+  margin-top: 15px;
+  margin-left: 15px;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Chat</title>
+    <link rel="shortcut icon" href="https://chat.openai.com/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="bg-gray-700">
+    <div class="flex">
+        <aside class="bg-gray-900 w-1/4 xl:w-1/5 2xl:w-[15%] h-[100svh] p-3 hidden lg:block overflow-y-hidden">
+            <button id="newChat"
+                class="border-[1px] border-slate-600 transition-all hover:border-slate-500 block w-full py-2.5 rounded-lg text-slate-300 px-5 text-left text-sm">
+                <i class="fa-solid fa-plus mr-3"></i> New Chat</button>
+
+            <ul id="questionsHistory" class="overflow-y-scroll h-full">
+                {% for question in questions %}
+                <li class="text-slate-300 flex items-center p-2.5 px-3 hover:bg-gray-800 rounded-lg cursor-pointer">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round"
+                        stroke-linejoin="round" class="h-4 w-4 mr-2" height="1em" width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    {% if question.question|count > 25 %}
+                    <span class="text-sm">{{question.question[:25]}}...</span>
+                    {% else %}
+                    <span class="text-sm">{{question.question}}</span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
+        <main
+            class="w-full lg:w-3/4 xl:w-4/5 2xl:w-[85%] relative grid h-[100svh] auto-rows-[2fr_.2fr] overflow-y-scroll">
+            <div id="mainContent" class="place-self-center">
+                <div class="box text-slate-100 text-center">
+                    <h1 class="text-4xl font-bold"><a href="{{url_for('index')}}">ChatGPT</a></h1>
+                    <div class="flex justify-center py-10 gap-2">
+                        <div class="w-1/3">
+                            <h2 class="text-slate-100 font-medium text-xl mb-4">
+                                <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
+                                    stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mx-auto mb-3"
+                                    height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                                <span>Examples</span>
+                            </h2>
+                            <ul class="text-sm space-y-4 mx-1">
+                                <li class="bg-white/5 p-3 rounded-lg cursor-pointer hover:bg-gray-900">"Explain quantum
+                                    computing in simple terms"</li>
+                                <li class="bg-white/5 p-3 rounded-lg cursor-pointer hover:bg-gray-900">"Got any creative
+                                    ideas for 10 year old's birthday?</li>
+                                <li class="bg-white/5 p-3 rounded-lg cursor-pointer hover:bg-gray-900">"How do i make an
+                                    HTTP request in javascript?"</li>
+                            </ul>
+                        </div>
+                        <div class="w-1/3">
+                            <h2 class="text-slate-100 font-medium text-xl mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" aria-hidden="true"
+                                    class="h-6 w-6 mx-auto mb-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path>
+                                </svg>
+                                <span>Capabilities</span>
+                            </h2>
+                            <ul class="text-sm space-y-4 mx-1">
+                                <li class="bg-white/5 p-3 rounded-lg">Remembers what user said earlier in the
+                                    conversation</li>
+                                <li class="bg-white/5 p-3 rounded-lg">Allows user to provide follow-up corrections</li>
+                                <li class="bg-white/5 p-3 rounded-lg">Trained to decline inappropriate requests</li>
+                            </ul>
+                        </div>
+                        <div class="w-1/3">
+                            <h2 class="text-slate-100 font-medium text-xl mb-4">
+                                <svg stroke="currentColor" fill="none" stroke-width="1.5" viewBox="0 0 24 24"
+                                    stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 mx-auto mb-3"
+                                    height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                                    </path>
+                                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                                </svg>
+                                <span>Limitations</span>
+                            </h2>
+                            <ul class="text-sm space-y-4 mx-1">
+                                <li class="bg-white/5 p-3 rounded-lg">May occasionally generate incorrect information
+                                </li>
+                                <li class="bg-white/5 p-3 rounded-lg">May occasionally produce harmful instructions or
+                                    biased content</li>
+                                <li class="bg-white/5 p-3 rounded-lg">Limited knowledge of world and events after 2021
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-white hidden" id="faqs">
+                <div class="loader" id="loader">
+                    <div class="square animate-loader" id="sq1"></div>
+                    <div class="square animate-loader" id="sq2"></div>
+                    <div class="square animate-loader" id="sq3"></div>
+                    <div class="square animate-loader" id="sq4"></div>
+                    <div class="square animate-loader" id="sq5"></div>
+                    <div class="square animate-loader" id="sq6"></div>
+                    <div class="square animate-loader" id="sq7"></div>
+                    <div class="square animate-loader" id="sq8"></div>
+                    <div class="square animate-loader" id="sq9"></div>
+                </div>
+            </div>
+
+            <!-- Prompts -->
+            <div
+                class="bg-gradient-to-b from-transparent via-gray-700 to-gray-800 py-6 sticky left-0 bottom-0 right-0 h-fit self-end">
+                <form class="box flex bg-gray-600 rounded-md" id="prompt">
+                    <label for="question" class="block w-full">
+                        <!-- Question -->
+                        <input type="text" name="question" id="question"
+                            class="py-3 px-4 block rounded-l-md bg-transparent text-gray-300 outline-none w-full"
+                            placeholder="Send a message..">
+                    </label>
+                    <button type="submit"
+                        class="w-fit flex items-center justify-center text-slate-400 hover:text-slate-200 mr-4">
+                        <svg stroke="currentColor" fill="none" id="submit" stroke-width="2" viewBox="0 0 24 24"
+                            stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" height="1em" width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Javascript Files -->
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
+</body>
+
+</html>
