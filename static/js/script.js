@@ -59,6 +59,7 @@ promptForm.addEventListener("submit", (event) => {
     faqs.classList.remove("hidden");
     promptQuestion = promptForm.question.value;
     promptForm.question.value = "";
+    loader.classList.remove("hidden");
 
     // Make a post request
     postData("/chat", { data: promptQuestion }).then((response) => {

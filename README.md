@@ -61,19 +61,26 @@ Watch your css for updates
 ```
 Now your are good to go, your development environment is ready. You can now make changes in the application.
 
-## API Reference
+## Environment Setup
+Create a .env file in your project root directory and copy below variables in your .env file
+```
+FLASK_SQLALCHEMY_DATABASE_URI = "sqlite:///test.sqlite3"
+FLASK_OPENAI_API_KEY = "YOUR_API_KEY"
+FLASK_DEBUG = True
+```
+
 Your have to create your `API_KEY` for this project to work.
 - Login to your ChatGPT account
 - Visit Here to [create api key](https://platform.openai.com/account/api-keys)
 - Copy your api key
 
 ```
-  Paste your API_KEY in .env file
+  Paste YOUR_API_KEY in .env file
 ```
 
 | Env Variable | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `FLASK_OPENAI_API_KEY` | `string` | **Required**. Your API key |
+| `OPENAI_API_KEY` | `string` | **Required**. Your API key |
 
 ## Feedback
 

@@ -26,6 +26,7 @@ def index():
         
         questions = Questions.query.order_by(Questions.data_added.desc()).all()
         questions = [question.question[:25] + "...." if len(question.question) > 25 else question.question for question in questions]
+        
         if not questions:
             questions = "No Questions Found"
 
@@ -61,9 +62,8 @@ def chat():
                 model="text-davinci-003", 
                 prompt=question, 
                 temperature=0.5, 
-                max_tokens=100
+                max_tokens=50
             )
-            print(response.choices[0]['text'])
             # Return Response
             data = {
                 "status": "success",
